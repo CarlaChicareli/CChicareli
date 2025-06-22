@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carla Chicareli | UX/UI Designer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000; /* Dark Cherry */
+            --primary-light: #a83232;
+            --primary-dark: #5a0000;
+            --secondary: #333333;
+            --light: #f5f5f5;
+            --dark: #222222;
+            --gray-1: #e0e0e0;
+            --gray-2: #cccccc;
+            --gray-3: #999999;
+            --gray-4: #666666;
+            --gray-5: #444444;
+            --bg-light: #f8f8f8;
+            --bg-dark: #2a2a2a;
+            --text-light: #eeeeee;
+            --text-dark: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .section {
+            padding: 120px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 42px;
+            color: var(--primary);
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title .subtitle {
+            font-size: 18px;
+            color: var(--gray-4);
+            margin-top: 15px;
+            font-weight: 400;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(42, 42, 42, 0.95);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(42, 42, 42, 0.98);
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            transition: all 0.4s ease;
+        }
+        
+        header.scrolled nav {
+            padding: 5px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            z-index: 1001;
+        }
+        
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            z-index: -1;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+        
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+            margin-top: 100px;
+
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-placeholder {
+            width: 350px;
+            height: 350px;
+            border-radius: 30px;
+            background-color: var(--gray-1);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image-placeholder::before {
+            content: 'UX/UI';
+            position: absolute;
+            font-size: 120px;
+            font-weight: 700;
+            color: rgba(139, 0, 0, 0.05);
+            font-family: 'Playfair Display', serif;
+            transform: rotate(-15deg);
+        }
+        
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 25px;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+        
+        .hero h2 {
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: var(--gray-5);
+        }
+        
+        .hero p {
+            margin-bottom: 40px;
+            font-size: 18px;
+            color: var(--gray-4);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--primary-dark);
+            transition: width 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            z-index: -1;
+        }
+        
+        .btn-primary:hover::before {
+            width: 100%;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-left: 20px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .btn-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--bg-light), white);
+            z-index: 1;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+            min-height: 500px;
+        }
+        
+        .about-image-placeholder {
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            background-color: var(--gray-1);
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .about-image-placeholder::before {
+            content: 'DESIGN';
+            position: absolute;
+            font-size: 150px;
+            font-weight: 700;
+            color: rgba(139, 0, 0, 0.03);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 36px;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: var(--gray-4);
+        }
+        
+        .about-details {
+            margin: 40px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .detail-item {
+            flex: 1 1 200px;
+        }
+        
+        .detail-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .detail-item p {
+            font-size: 16px;
+            color: var(--gray-4);
+        }
+        
+        .skills {
+            margin-top: 40px;
+        }
+        
+        .skills h4 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .skill-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .skill-category {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .skill-category h5 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--gray-5);
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .skill-category h5::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill {
+            background-color: var(--primary-light);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: var(--bg-light);
+            position: relative;
+        }
+        
+        .portfolio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, white, var(--bg-light));
+            z-index: 1;
+        }
+        
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            border-radius: 50px;
+            background-color: white;
+            color: var(--gray-4);
+            font-weight: 500;
+            border: 1px solid var(--gray-2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .portfolio-item {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .portfolio-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(139, 0, 0, 0), rgba(139, 0, 0, 0.6));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-img::before {
+            opacity: 1;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-overlay-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-overlay-btn:hover {
+            transform: scale(1.1);
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .portfolio-info {
+            padding: 25px;
+        }
+        
+        .portfolio-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .portfolio-info p {
+            color: var(--gray-4);
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .portfolio-link {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+        
+        .portfolio-link i {
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Experience Section */
+        .experience {
+            background-color: white;
+            position: relative;
+        }
+        
+        .experience::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--bg-light), white);
+            z-index: 1;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            padding: 20px 0;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 70px;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 70px;
+        }
+        
+        .timeline-content {
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            border: 1px solid var(--gray-1);
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 30px;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -42px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -42px;
+        }
+        
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .timeline-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .timeline-company {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .timeline-description {
+            color: var(--gray-4);
+            font-size: 15px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .contact .section-title h2 {
+            color: white;
+        }
+        
+        .contact .section-title h2::after {
+            background-color: white;
+        }
+        
+        .contact .section-title .subtitle {
+            color: var(--gray-3);
+        }
+        
+        .contact-content {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .contact-info {
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 40px;
+            color: var(--gray-3);
+            font-size: 17px;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .contact-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: var(--gray-3);
+            font-size: 16px;
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--gray-3);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: var(--gray-3);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 15px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: var(--gray-3);
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 50px;
+            }
+            
+            .hero h2 {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .section {
+                padding: 80px 0;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .hero-text {
+                order: 1;
+                text-align: center;
+                max-width: 100%;
+            }
+            
+            .hero-image {
+                order: 2;
+                height: auto;
+            }
+            
+            .hero-image-placeholder {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .btn-group {
+                justify-content: center;
+            }
+            
+            .about-content {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .about-image {
+                min-height: 400px;
+            }
+            
+            .about-image-placeholder {
+                height: 400px;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+                gap: 50px;
+            }
+            
+            .timeline::before {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 80px;
+                padding-right: 25px;
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-content::after {
+                left: 18px !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 350px;
+                height: 100vh;
+                background-color: var(--bg-dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: right 0.4s ease;
+                z-index: 1000;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .hero h2 {
+                font-size: 20px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 36px;
+            }
+            
+            .about-text h3 {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+            
+            .about-text h3 {
+                font-size: 26px;
+            }
+            
+            .timeline-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Carla<span>Chicareli</span></a>
+                <div class="nav-links">
+                    <a href="#about" class="active">Sobre</a>
+                    <a href="#portfolio">Portfólio</a>
+                    <a href="#experience">Experiência</a>
+                    <a href="#contact">Contato</a>
+                </div>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Transformando ideias em experiências digitais memoráveis</h1>
+                    <h2>UX/UI Profissional de Design e Tecnologia</h2>
+                    <p>Combinando conhecimentos em design, comunicação visual e tecnologia para desenvolver soluções visuais e digitais para diferentes plataformas e públicos</p>
+                    <div class="btn-group">
+                        <a href="#portfolio" class="btn btn-primary">Ver Portfólio</a>
+                        <a href="#contact" class="btn btn-outline">Entrar em Contato</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Mim</h2>
+                <p class="subtitle">Minha jornada, habilidades e abordagem de design</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Designer com formação técnica em Informática e experiência multidisciplinar</h3>
+                    <p>Tenho paixão por transformar ideias em soluções visuais criativas e funcionais. Minha formação técnica e minha vivência em diferentes áreas do design me permitem atuar desde a criação de peças gráficas até o suporte em projetos digitais e de comunicação.</p>
+                    
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <h4>Formação</h4>
+                            <p>Graduanda em Design (UFMG) com formação técnica em Informática pelo CEFET-MG.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Experiência</h4>
+                            <p>Atuação em empresas como Forno de Minas, RemOpt e EMANX Telecom.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Prêmios</h4>
+                            <p>2º lugar na META (CEFET-MG) pelo aplicativo de registro de sonhos.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>Abordagem</h4>
+                            <p>Priorizo a criação de soluções visuais criativas e funcionais, com atenção à clareza da comunicação, inclusão e eficiência nos processos de produção.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="skills">
+                        <h4>Minhas Habilidades</h4>
+                        <div class="skill-categories">
+                            <div class="skill-category">
+                                <h5>Design</h5>
+                         <div class="skill-items">
+                            <span class="skill">UX Design</span>
+                            <span class="skill">UI Design</span>
+                            <span class="skill">Figma</span>
+                            <span class="skill">Photoshop</span>
+                            <span class="skill">Prototipação</span>
+                            <span class="skill">Produção gráfica</span>
+                            <span class="skill">Layouts</span>
+                            <span class="skill">Branding</span>
+                            <span class="skill">Design de embalagens</span>
+                            <span class="skill">Tratamento de imagem</span>
+                            <span class="skill">Conferência de Prova de Cor e Ajuste de Texto</span>
+                            <span class="skill">Adobe Illustrator</span>
+                        </div>
+
+                            </div>
+                            <div class="skill-category">
+                                <h5>Desenvolvimento</h5>
+                                <div class="skill-items">
+                                    <span class="skill">HTML/CSS</span>
+                                    <span class="skill">JavaScript</span>
+                                    <span class="skill">React Native</span>
+                                    <span class="skill">PHP</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h5>Metodologias</h5>
+                                <div class="skill-items">
+                                    <span class="skill">Design Thinking</span>
+                                    <span class="skill">Scrum</span>
+                                    <span class="skill">Pesquisa de Usuário</span>
+                                    <span class="skill">Testes de Usabilidade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Portfólio</h2>
+                <p class="subtitle">Alguns dos meus projetos mais recentes</p>
+            </div>
+            
+            <div class="portfolio-filter">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">UX/UI</button>
+                <button class="filter-btn">Aplicativos</button>
+                <button class="filter-btn">Web Design</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1517842645767-c639042777db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="portfolio-overlay">
+                            <a href="https://www.figma.com/proto/0EHh0KkWwa9Vz88zhLz3Ox/Mockups-app?node-id=1947-1105&t=f0nUqT0Bw3wRX545-1&scaling=contain&content-scaling=fixed" class="portfolio-overlay-btn" target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Diário de Registro de Sonhos</h3>
+                        <p>Aplicativo mobile desenvolvido com React Native para registro de sonhos com ambientação através de imagens geradas por IA.</p>
+                        <a href="https://www.figma.com/proto/0EHh0KkWwa9Vz88zhLz3Ox/Mockups-app?node-id=1947-1105&t=f0nUqT0Bw3wRX545-1&scaling=contain&content-scaling=fixed" class="portfolio-link" target="_blank">
+                            Ver projeto <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projeto Tech Vô -->
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="portfolio-overlay">
+                            <a href="https://www.figma.com/proto/WCAod9sdR7M03pJzGVrc3t/Mockups-app-(Copy)?node-id=4174-435&node-type=frame&t=LOFxp9pY4ShcjSv6-1&scaling=scale-down&content-scaling=fixed&page-id=4174%3A434" class="portfolio-overlay-btn" target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Tech Vô</h3>
+                        <p>Aplicativo que adapta a interface do celular para idosos e pessoas com baixa mobilidade e visão, melhorando usabilidade e inclusão.</p>
+                        <a href="https://www.figma.com/proto/WCAod9sdR7M03pJzGVrc3t/Mockups-app-(Copy)?node-id=4174-435&node-type=frame&t=LOFxp9pY4ShcjSv6-1&scaling=scale-down&content-scaling=fixed&page-id=4174%3A434" class="portfolio-link" target="_blank">
+                            Ver projeto <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projeto Behance -->
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="portfolio-overlay">
+                            <a href="https://www.behance.net/carlachicareli1" class="portfolio-overlay-btn" target="_blank">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Behance Portfolio</h3>
+                        <p>Coleção completa dos meus trabalhos de design, incluindo projetos acadêmicos, pessoais e profissionais.</p>
+                        <a href="https://www.behance.net/carlachicareli1" class="portfolio-link" target="_blank">
+                            Ver projetos <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experiência Profissional</h2>
+                <p class="subtitle">Minha jornada e conquistas profissionais</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Jan 2025 - Presente</div>
+                        <h3 class="timeline-title">Estagiária de Design</h3>
+                        <span class="timeline-company">Forno de Minas</span>
+                        <p class="timeline-description">
+                            Atuo na criação de layouts para embalagens, comunicação interna e outras demandas visuais. Realizo tratamento de imagens e conferência de provas de cor, garantindo a qualidade visual dos materiais produzidos. Colaboro com a equipe na criação de embalagens e materiais de comunicação.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Set 2024 - Jan 2025</div>
+                        <h3 class="timeline-title">Analista de Coleta de Dados</h3>
+                        <span class="timeline-company">RemOpt</span>
+                        <p class="timeline-description">
+                            Atuei na área de coleta de dados das redes de telefonia celular, realizando atividades de drive test e oferecendo suporte remoto às equipes em campo. Experiência com tecnologias 2G, 3G, LTE e 5G. Responsável pela análise dos dados obtidos durante as rotas, avaliando o desempenho da rede.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Fev 2024 - Set 2024</div>
+                        <h3 class="timeline-title">Auxiliar de E-commerce</h3>
+                        <span class="timeline-company">EMANX TELECOM</span>
+                        <p class="timeline-description">
+                            Atuei no processamento de pedidos, análise de desempenho de vendas e atualização de conteúdo do site. Colaborei com a equipe de design para o planejamento técnico e criativo do marketing digital. Como estagiária de informática, realizei formatação, testes e manutenção de equipamentos eletrônicos.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023</div>
+                        <h3 class="timeline-title">Trabalho de Conclusão de Curso</h3>
+                        <span class="timeline-company">CEFET-MG</span>
+                        <p class="timeline-description">
+                            Desenvolvimento do aplicativo "Nina" para registro de sonhos com ambientação através de imagens geradas por Inteligência Artificial. Projeto desenvolvido com React Native, RealmDb e Figma. Premiação com 2º lugar na META (Mostra Específica de Trabalho e Aplicações) no CEFET-MG.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="contact">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Vamos trabalhar juntos!</h3>
+                    <p>Estou sempre aberta a novas oportunidades, colaborações ou simplesmente para bater um papo sobre design e tecnologia. Sinta-se à vontade para entrar em contato comigo através dos canais abaixo.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:carlachicareli@gmail.com">carlachicareli@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Telefone</h4>
+                                <a href="tel:+5531997735757">(31) 99773-5757</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Localização</h4>
+                                <p>Contagem, Minas Gerais</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/carla-chicareli-5a41bb287/" class="social-link" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://www.behance.net/carlachicareli1" class="social-link" target="_blank">
+                            <i class="fab fa-behance"></i>
+                        </a>
+
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#about">Sobre</a>
+                    <a href="#portfolio">Portfólio</a>
+                    <a href="#experience">Experiência</a>
+                    <a href="#contact">Contato</a>
+                </div>
+                <p>&copy; 2025 Carla Chicareli. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-times');
+            this.querySelector('i').classList.toggle('fa-bars');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Active link highlight
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.nav-links a');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${current}`) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
